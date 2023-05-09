@@ -1,0 +1,6 @@
+  def ci_add(val1, val2):
+    # Put custom code here to run before every program.
+    return val1 + val2
+  end
+
+
