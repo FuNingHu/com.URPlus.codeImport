@@ -28,7 +28,7 @@ public class CIInstallationNodeContribution implements InstallationNodeContribut
 	private final CIInstallationNodeView view;
 	private static final String NO_DATA_KEY = "# No data read";
 	private File dest_sim = new File("/home/ur/ursim/ursim-5.11.0.108249/programs/ci_user.script");
-	private File dest_real = new File("/root/programs/ci_user.script");
+	private File dest_real = new File("/programs/ci_user.script");
 	public CIInstallationNodeContribution(InstallationAPIProvider apiProvider, CIInstallationNodeView view,
 			DataModel model, CreationContext context) {
 		// TODO Auto-generated constructor stub
@@ -51,7 +51,7 @@ public class CIInstallationNodeContribution implements InstallationNodeContribut
 		}
 		try {
 			copyFile(dest_real);
-			System.out.println("placed ci_user.script into /root/programs folder...done!");
+			System.out.println("placed ci_user.script into programs folder...done!");
 		} catch(Exception e) {
 			System.out.println("placing ci_user.script... failure!");
 		}
@@ -66,15 +66,15 @@ public class CIInstallationNodeContribution implements InstallationNodeContribut
 	@Override
 	public void generateScript(ScriptWriter writer) {
 		// TODO Auto-generated method stub
-		try {
-			if (!readScriptFile("/root/programs/ci_user.script").equals(NO_DATA_KEY)) {
-				writer.appendRaw(readScriptFile("/root/programs/ci_user.script"));
+		try { //read from real cobot folder
+			if (!readScriptFile("/programs/ci_user.script").equals(NO_DATA_KEY)) {
+				writer.appendRaw(readScriptFile("/programs/ci_user.script"));
 				System.out.println("read from physical cobot...done!");
 			}
 		} catch (Exception e) {
 			System.out.println("read from physical cobot...failure!");
 		}
-		try {
+		try { // read from simulator folder
 			if (!readScriptFile("/home/ur/ursim/ursim-5.11.0.108249/programs/ci_user.script").equals(NO_DATA_KEY)) {
 				writer.appendRaw(readScriptFile("/home/ur/ursim/ursim-5.11.0.108249/programs/ci_user.script"));
 				System.out.println("read from ursim...done!");
